@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="refresh" content="20">
+
+    <!-- 
+    {% static %}
+     <link rel="icon" href="{% static 'ecowise/setup/logo.png' %}" type="image/png">
+
+    -->
+
+    <!-- <meta http-equiv="refresh" content="600" /> -->
+
+    <link rel="icon" href="static\apronLogo.png" type="image/png">
+    <link rel="shortcut icon" href="static\apronLogo.png" type="image/png">
+
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Smart Apron</title>
+</head>
+<body class="bg-[#f9fafb]">
+
+    <!-- Navbar -->
+    <section class="relative h-[200px] md:h-[650px] w-full border ">
+        <video autoplay loop muted class="absolute top-20 left-0 h- w-full h-[200px] md:h-[700px] object-cover">
+            <source src="static\bannerVideo.mp4" type="video/mp4" >
+            <!-- Fallback content if the video doesn't play -->
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Fixed Navbar -->
+        <div class="absolute top-0 left-0 w-full flex items-center justify-between px-8 py-4 bg-[#ef4444] z-10">
+            <!-- Logo -->
+            <div class="flex w-full">
+                <img src="static\apronLogo.jpg" alt="EcoWise Logo" class="h-12 rounded-md">
+                <div class="pt-1 ml-2 hidden md:block text-3xl font-bold text-yellow-100">Smart Apron</div>
+            </div>
+            <!-- Navbar Links -->
+            <div class="flex space-x-8 text-xl font-bold text-yellow-100">
+                <a href="/index.html" class="hover:text-black hover:underline">Home</a>
+                <a href="/gallery.html" class="hover:text-black hover:underline">Gallery</a>
+                <a href="/contact.html" class="hover:text-black hover:underline">Contact</a>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Body Section with Top Margin -->
+<section class="mt-20 md:mt-40 mb-10 py-4 px-2 md:px-10 font-mono">
+    <div class="text-center text-2xl md:text-5xl font-bold text-gray-700 mb-10 md:mb-20">Current Patient Parameters</div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+        
+        <div class="text-center border rounded-md shadow shadow-md shadow-gray-400 py-10" id="bodyTemp">Body Temperature </div>
+        <div class="text-center border rounded-md shadow shadow-md shadow-gray-400 py-10" id="bloodPressure">Blood Pressure </div>
+        <div class="text-center border rounded-md shadow shadow-md shadow-gray-400 py-10" id="heartPulse">Heart Pulse </div>
+        <div class="text-center border rounded-md shadow shadow-md shadow-gray-400 py-10" id="timestamp">Timestamp </div>
+        <div class="hidden md:block"></div>
+        <div class="text-center border rounded-md shadow shadow-md shadow-gray-400 py-10" id="salineBagStatus">Saline Bag Status </div>
+        <div class="text-center border rounded-md shadow shadow-md shadow-gray-400 py-10" id="urineBagStatus">Urine Bag Status </div>
+        <div class="hidden md:block"></div>
+    </div>
+    
+    
+<br>
+    <script>
+        // Function to fetch and display data
+        function fetchData() {
+            fetch("https://api.thingspeak.com/channels/2743786/feeds.json?results=1")
+                .then(response => response.json())
+                .then(data => {
+                    const feed = data.feeds[0];
+
+                    // Display each field in its respective div
+                    document.getElementById("bodyTemp").innerHTML = "<b>Body Temperature</b> <br>" + feed.field1;
+                    document.getElementById("bloodPressure").innerHTML = "<b>Blood Pressure</b> <br>" + feed.field2;
+                    document.getElementById("heartPulse").innerHTML = "<b>Heart Pulse</b> <br>" + feed.field3;
+                    document.getElementById("salineBagStatus").innerHTML = "<b>Saline Bag Status</b> <br>" + (feed.field4 === "1" ? '<div class="mx-10 border rounded-md bg-yellow-300 p-1">Low</div>' : '<div class="mx-10 border rounded-md bg-green-300 p-1">Normal</div>');
+                    document.getElementById("urineBagStatus").innerHTML = "<b>Urine Bag Status</b> <br>" + (feed.field5 === "1" ? '<div class="mx-10 border rounded-md bg-red-400 p-1">Full</div>' : '<div class="mx-10 border rounded-md bg-green-400 p-1">Not Full</div>');
+                    document.getElementById("timestamp").innerHTML = "<b>Timestamp</b> <br>" + new Date(feed.created_at).toLocaleString();
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Fetch data immediately and every 20 seconds
+        fetchData();
+        setInterval(fetchData, 20000);
+    </script>
+    
+    <div class="text-center text-2xl md:text-5xl font-bold text-gray-700 mb-10 md:mb-20">Patient Monitoring Solutions for Precision Care</div>
+    <!-- Banner -->
+    <div class="my-2 rounded-full shadow shadow-xl shadow-gray-600 mb-10">
+        <img src="static\banner.avif" alt="banner img" class="w-full h-full rounded-full">
+    </div>
+
+
+    <div class="text-5xl font-bold mt-10 text-center">USER TRUSTED</div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 mt-2 md:mt-24">
+            <div class="text-2xl md:text-6xl font-bold mt-4 text-center">92%</div>
+            <div class="text-md md:text-2xl mt-2 md:col-span-3 pt-4 uppercase text-justify">of Smart apron users believe our IoT solutions enhance operational efficiency</div>
+        
+            <div class="text-2xl md:text-6xl font-bold text-center">95%</div>
+            <div class="text-md md:text-2xl mt-2 md:col-span-3 pt-4 uppercase text-justify">of IoT users trust Smart apron for reliable real-time monitoring</div>
+        
+            <div class="text-2xl md:text-6xl font-bold text-center">93%</div>
+            <div class="text-md md:text-2xl mt-2 md:col-span-3 pt-4 uppercase text-justify">of Smart apron users recommend our IoT monitoring solutions for industry needs</div>
+    </div>
+    
+
+    <div class="hidden md:block ">
+        <div class="grid grid-cols-3 gap-1 mt-24">
+            <div>
+                <div>
+                    <div class="text-6xl">1.2K</div>
+                    <div class="text-2xl">DEVICES CONNECTED</div>
+                    <hr class="border-2 border-gray-600">
+                    <div class="text-2xl">Displays the number of IoT devices actively connected to the network.</div>
+                </div>
+                <div class="mt-40">
+                    <div class="text-6xl">85</div>
+                    <div class="text-2xl">MONITORED SITES</div>
+                    <hr class="border-2 border-gray-600">
+                    <div class="text-2xl">Shows the number of locations with active IoT monitoring for safety, pollution, etc.</div>
+                </div>
+            </div>
+            
+            <img src="static\Earth.webp" alt="network image" class="h-[510px]">
+            
+            <div class="text-right">
+                <div>
+                    <div class="text-6xl">30%</div>
+                    <div class="text-2xl">ENERGY SAVED</div>
+                    <hr class="border-2 border-gray-600">
+                    <div class="text-2xl">Percentage of energy saved through efficient IoT device management and automation.</div>
+                </div>
+                <div class="mt-40">
+                    <div class="text-6xl">200</div>
+                    <div class="text-2xl">REPORTED ISSUES RESOLVED</div>
+                    <hr class="border-2 border-gray-600">
+                    <div class="text-2xl">Total number of resolved alerts and issues identified through IoT monitoring.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function togglePopup(popupId) {
+            const popup = document.getElementById(popupId);
+            popup.classList.toggle('hidden');
+        }
+    </script>
+
+
+</section>
+
+
+
+
+  
+
+</body>
+</html>
+
+
+
+<!-- 
+
+https://api.thingspeak.com/update?api_key=VFEZS0RACY1RKYBH&field1=0
+
+https://api.thingspeak.com/update?api_key=VFEZS0RACY1RKYBH&field1=64&field2=100&field3=60&field4=1&field5=0
+
+-->
